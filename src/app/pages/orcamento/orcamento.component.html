@@ -1,0 +1,72 @@
+<div class="vh-100">
+
+    <header class="text-center mb-3">
+        <h2>Orçamentos</h2>
+    </header>
+
+    <button class="btn btn-secondary " (click)="showModalOrcamento()">Novo Orçamento</button>
+
+    @if(isModalOrcamento)
+    {
+    <app-modal-orcamento (isModalOrcamento)="showModalOrcamento()" (updateData)="getAllOrcamentos()"
+        [orcamento]="orcamento" />
+    }
+
+    @if(message)
+    {
+    <div class="alert alert-danger" role="alert">
+        {{message}}
+    </div>
+    }
+
+
+    <main>
+
+        <table class="table-sm table table-striped table-secondary table-hover">
+
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Carro</th>
+                    <th>Placa</th>
+                    <th>Chassis</th>
+                    <th>Aberto em</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for(orcamento of orcamentos$ | async; track orcamento.id)
+                {
+                <tr>
+                    <td>{{ orcamento.cliente }}</td>
+                    <td>{{ orcamento.carro }}</td>
+                    <td>{{ orcamento.placa }}</td>
+                    <td>{{ orcamento.chassis }}</td>
+                    <td>{{ orcamento.createdAt }}</td>
+                    <td class="d-flex gap-1">
+                        <button class="btn btn-sm btn-secondary" title="Editar">
+                            <i (click)="editOrcamento(orcamento.id)" class="fa-solid fa-user-pen"></i>
+                        </button>
+                        <a href="" class="btn btn-sm btn-primary" title="Detalhes"><i
+                                class="fa-solid fa-cart-plus"></i></a>
+                        <button (click)="removeOrcamento(orcamento.id)" class="btn-sm btn btn-danger" title="Excluir"><i
+                                class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                </tr>
+                }@empty {
+                <tr>
+                    <td>Lista Vazia</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </main>
+
+</div>

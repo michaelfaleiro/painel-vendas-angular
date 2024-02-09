@@ -1,0 +1,88 @@
+<div class="modal show fade" style="display: block; background-color: rgba(0, 0, 0, 0.5);" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark ">
+            <header class="modal-header">
+                <h2 class="modal-title ">Novo Orçamento</h2>
+                <button (click)="closeModal()" class="btn-close"></button>
+            </header>
+            <div class="modal-body ">
+                <form class="text-white" (ngSubmit)="submit()" [formGroup]="orcamentoForm" #formDir="ngForm">
+
+                    <div class=" mb-2">
+                        <label for="cliente">Cliente:</label>
+                        <input id="cliente" type="text" class="form-control" formControlName="cliente" />
+                        @if(formDir.submitted)
+                        {
+                        @if(orcamentoForm.get('cliente')?.errors?.['required'])
+                        {
+                        <div class="text-danger fw-semibold ">
+                            <p>Cliente é Obrigatório</p>
+                        </div>
+                        }
+                        }
+                    </div>
+
+                    <div class=" mb-3">
+                        <label for="telefone">Telefone:</label>
+                        <input id="telefone" type="tel" class="form-control" id="telefone" formControlName="telefone">
+                        @if(formDir.submitted)
+                        {
+                        @if(orcamentoForm.get('telefone')?.errors?.['required'])
+                        {
+                        <div class="text-danger fw-semibold ">
+                            <p>Informe o Telefone</p>
+                        </div>
+                        }
+                        }
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="carro">Carro:</label>
+                            <input id="carro" type="text" class="form-control" id="carro" formControlName="carro">
+                            @if(formDir.submitted)
+                            {
+                            @if(orcamentoForm.get('carro')?.errors?.['required'])
+                            {
+                            <div class="text-danger fw-semibold ">
+                                <p>Informe o Carro</p>
+                            </div>
+                            }
+                            }
+                        </div>
+
+                        <div class="col">
+                            <label for="placa">Placa:</label>
+                            <input id="placa" type="text" class="form-control" id="placa" formControlName="placa">
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="chassis">Chassis:</label>
+                        <input id="chassis" type="text" class="form-control" id="chassis" formControlName="chassis">
+                    </div>
+
+
+                    @if(isBusy)
+                    {
+                    <button class="col-12 btn btn-secondary" disabled>Salvando...</button>
+                    } @else {
+                    <div class="d-flex flex-nowrap align-items-center gap-2 w-100">
+                        @if(orcamento !== null && !isObjectEmpty(orcamento))
+                        {
+                        <button type="submit" class="btn btn-primary w-100 ">Alterar</button>
+                        } @else {
+                        <button type="submit" class="btn btn-success w-100">Salvar</button>
+
+                        }
+                        <button type="button" (click)="closeModal()" class="btn btn-danger w-100  ">Cancelar</button>
+                    </div>
+                    }
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>
