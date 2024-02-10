@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalOrcamentoComponent } from '../../components/modal-orcamento/modal-orcamento.component';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-orcamento',
@@ -16,11 +17,13 @@ import { ModalOrcamentoComponent } from '../../components/modal-orcamento/modal-
 export class OrcamentoComponent {
   orcamentos$ = new Observable<IOrcamento[]>();
   isModalOrcamento: boolean = false;
-  message = '';
 
   orcamento: IOrcamento = <IOrcamento>{};
 
-  constructor(private orcamentoService: OrcamentoService) {}
+  constructor(
+    private orcamentoService: OrcamentoService,
+    private messagesService: MessagesService
+  ) {}
 
   ngOnInit(): void {
     this.getAllOrcamentos();
@@ -49,7 +52,6 @@ export class OrcamentoComponent {
   }
 
   getOrcamentoById(id: string) {
-    console.log(id);
     this.orcamentoService
       .getOrcamentoById(id)
       .subscribe((data) => (this.orcamento = data));
@@ -59,12 +61,13 @@ export class OrcamentoComponent {
     this.orcamentoService
       .putOrcamento(id, orcamento)
       .subscribe(() => this.orcamentoService.getAllOrcamentos());
+    this.messagesService.add('Atualizado com Sucesso', 'success');
   }
 
   removeOrcamento(id: string) {
     this.orcamentoService
       .removeOrcamento(id)
       .subscribe(() => this.getAllOrcamentos());
-    this.message = 'Excluído!';
+    this.messagesService.add('Orçamento Excluído', 'danger');
   }
 }

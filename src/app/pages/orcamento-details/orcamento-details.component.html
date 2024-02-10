@@ -1,0 +1,77 @@
+<div class="vh-100 d-flex flex-column">
+    @if(isModalProduto)
+    {
+    <app-modal-produto (isModalProduto)="showModalProduto()" [produto]="produto" (updateData)="getOrcamentoById()" />
+    }
+    <header class="text-center mb-3">
+        <h2>Orçamento</h2>
+    </header>
+    <div class="row h-100">
+        <aside class="col-2 border d-flex flex-column">
+            <section class="" *ngIf="orcamento$ | async as orcamento">
+                <header class="text-center">
+                    <h5>Dados Orçamento</h5>
+                </header>
+                <p>Nome: {{orcamento.cliente}}</p>
+                <p>Telefone: {{orcamento.telefone}}</p>
+                <p>Carro: {{orcamento.carro}}</p>
+                <p>Placa: {{orcamento.placa}}</p>
+
+                <footer class="">
+                    <h5>Total</h5>
+                </footer>
+
+            </section>
+
+        </aside>
+        <main class="col-10">
+            <div>
+                <button (click)="showModalProduto()" class="btn btn-secondary mb-2">Adicionar Produto</button>
+            </div>
+            <table class="table table-sm table-striped table-hover table-secondary">
+                <thead>
+                    <tr>
+                        <th>Quant</th>
+                        <th>Descrição</th>
+                        <th>Sku</th>
+                        <th>Marca</th>
+                        <th>Link</th>
+                        <th class="text-center">Valor Unit</th>
+                        <th class="text-center">Total</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="orcamento$ | async as orcamento">
+
+                    <tr *ngFor="let item of orcamento.produtos">
+                        <td>{{item.quantidade}}</td>
+                        <td>{{item.nomeProduto | uppercase}}</td>
+                        <td>{{item.sku | uppercase}}</td>
+                        <td>{{item.marca | uppercase}}</td>
+                        @if(item.link)
+                        {
+                        <td><a href="{{item.link}}" target="_blank" rel="noopener noreferrer"
+                                title="Abrir Link do Produto" class=" text-blue ">
+                                <i class="fa-brands fa-chrome"></i>
+                            </a></td>
+                        } @else {
+                        <td></td>
+                        }
+
+                        <td class="text-center">{{item.precoVenda | currency: 'BRL': 'symbol': '1.2-2'}}</td>
+                        <td class="text-center">{{item.quantidade * item.precoVenda | currency: 'BRL': 'symbol':
+                            '1.2-2'}}</td>
+                        <td class="d-flex gap-1">
+                            <button class="btn btn-sm btn-secondary" (click)="editProduto(item.id!)">
+                                <i class="fa-solid fa-file-pen"></i>
+                            </button>
+                            <button (click)="removeProdutoOrcamento(item.id!)" class="btn btn-sm btn-danger"><i
+                                    class="fa-solid fa-trash-can"></i></button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </main>
+    </div>
+</div>

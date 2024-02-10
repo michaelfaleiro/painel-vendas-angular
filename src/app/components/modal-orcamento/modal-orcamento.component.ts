@@ -65,14 +65,16 @@ export class ModalOrcamentoComponent implements OnInit {
           .putOrcamento(this.orcamento.id, this.orcamentoForm.value)
           .pipe(tap(() => this.updateData.emit()))
           .subscribe(() => {
-            this.closeModal(), this.messagesService.add('Alterado com Sucesso');
+            this.closeModal(),
+              this.messagesService.add('Alterado com Sucesso', 'success');
           });
       } else {
         this.orcamentoService
           .postOrcamento(this.orcamentoForm.value)
           .pipe(tap(() => this.updateData.emit()))
           .subscribe(() => {
-            this.closeModal(), this.messagesService.add('Salvo com Sucesso');
+            this.closeModal(),
+              this.messagesService.add('Salvo com Sucesso', 'success');
           });
       }
 

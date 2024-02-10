@@ -1,6 +1,6 @@
 @if(messagesService.message)
 {
-<div class="alert alert-secondary  fixed-alert" role="alert">
+<div class="alert alert-{{messagesService.type}}  fixed-alert" role="alert">
     {{messagesService.message}}
 </div>
 }

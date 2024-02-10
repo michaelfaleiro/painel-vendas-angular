@@ -1,0 +1,140 @@
+<div class="modal show fade" style="display: block; background-color: rgba(0, 0, 0, 0.5);" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark ">
+            <header class="modal-header">
+                @if(produto !== null && !isObjectEmpty(produto))
+                {
+                <h2 class="modal-title ">Editar Produto</h2>
+                } @else {
+                <h2 class="modal-title ">Novo Produto</h2>
+                }
+                <button (click)="closeModal()" class="btn-close"></button>
+            </header>
+            <div class="modal-body ">
+                <form class="text-white" (ngSubmit)="submit()" [formGroup]="produtoForm" #formDir="ngForm">
+
+                    <div class="row">
+
+                        <div class="col-2 mb-2">
+                            <label for="quantidade">Quant:</label>
+                            <input id="quantidade" type="number" class="form-control" formControlName="quantidade"
+                                autoFocus />
+                            @if(formDir.submitted)
+                            {
+                            @if(produtoForm.get('quantidade')?.errors?.['required'])
+                            {
+                            <div class="text-danger fw-semibold ">
+                                <p>Mínimo 1</p>
+                            </div>
+                            }
+                            }
+                        </div>
+
+                        <div class="col">
+                            <label for="sku">Sku:</label>
+                            <input id="sku" type="text" class="form-control" id="sku" formControlName="sku">
+                            @if(formDir.submitted)
+                            {
+                            @if(produtoForm.get('sku')?.errors?.['required'])
+                            {
+                            <div class="text-danger fw-semibold ">
+                                <p>Informe o Sku</p>
+                            </div>
+                            }
+                            }
+                        </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="nomeProduto">Produto:</label>
+                        <input id="nomeProduto" type="tel" class="form-control" id="nomeProduto"
+                            formControlName="nomeProduto">
+                        @if(formDir.submitted)
+                        {
+                        @if(produtoForm.get('nomeProduto')?.errors?.['required'])
+                        {
+                        <div class="text-danger fw-semibold ">
+                            <p>Informe o Produto</p>
+                        </div>
+                        }
+                        }
+                    </div>
+
+                    <div class="row mb-3">
+
+                        <div class="col">
+                            <label for="marca">Marca:</label>
+                            <input id="marca" type="text" class="form-control" id="marca" formControlName="marca">
+                        </div>
+
+                        <div class="col">
+                            <label for="link">Preço:</label>
+                            <input id="precoVenda" type="number" class="form-control" id="precoVenda" step="0.01"
+                                min="0.01" formControlName="precoVenda">
+                            @if(formDir.submitted)
+                            {
+                            @if(produtoForm.get('precoVenda')?.errors?.['required'])
+                            {
+                            <div class="text-danger fw-semibold ">
+                                <p>Preço inválido</p>
+                            </div>
+                            }
+                            }
+                        </div>
+                    </div>
+
+
+
+                    <div class="mb-3">
+                        <label for="link">Link:</label>
+                        <input id="link" type="text" class="form-control" id="link" formControlName="link">
+                        @if(formDir.submitted)
+                        {
+                        @if(produtoForm.get('link')?.errors?.['required'])
+                        {
+                        <div class="text-danger fw-semibold ">
+                            <p>Link inválido</p>
+                        </div>
+                        }
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="observacao">Observação:</label>
+                        <input id="observacao" type="text" class="form-control" id="observacao"
+                            formControlName="observacao">
+                        @if(formDir.submitted)
+                        {
+                        @if(produtoForm.get('observacao')?.errors?.['required'])
+                        {
+                        <div class="text-danger fw-semibold ">
+                            <p>Preço inválido</p>
+                        </div>
+                        }
+                        }
+                    </div>
+
+
+                    @if(isBusy)
+                    {
+                    <button class="col-12 btn btn-secondary" disabled>Salvando...</button>
+                    } @else {
+                    <div class="d-flex flex-nowrap align-items-center gap-2 w-100">
+                        @if(produto !== null && !isObjectEmpty(produto))
+                        {
+                        <button type="submit" class="btn btn-primary w-100 ">Alterar</button>
+                        } @else {
+                        <button type="submit" class="btn btn-success w-100">Adicionar</button>
+
+                        }
+                        <button type="button" (click)="closeModal()" class="btn btn-danger w-100  ">Cancelar</button>
+                    </div>
+                    }
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -2,7 +2,14 @@
     <div class="modal-dialog">
         <div class="modal-content bg-dark ">
             <header class="modal-header">
+
+                @if(orcamento !== null && !isObjectEmpty(orcamento))
+                {
+                <h2 class="modal-title ">Editar Orçamento</h2>
+                } @else {
                 <h2 class="modal-title ">Novo Orçamento</h2>
+                }
+
                 <button (click)="closeModal()" class="btn-close"></button>
             </header>
             <div class="modal-body ">
